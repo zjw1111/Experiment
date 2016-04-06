@@ -1,8 +1,10 @@
 //kopyh
+#include <iostream>
 #include <cstdio>
 #include <string>
 #include <vector>
 using namespace std;
+const int N = 10001;
 
 class queue
 {
@@ -198,10 +200,14 @@ void solve2(string id[], double time[], int n)
 
 int main()
 {
-    //test intput
-    string id[10]={"tmp1","tmp2","tmp3","tmp4","tmp5"};
-    double time[10]={1.0,53.0,3.5,23.5,4.8};
-
+    int n;
+    string id[N];
+    double time[N];
+    printf("Please input the number of process:\n");
+    scanf("%d",&n);
+    printf("input every process's name and time:\n");
+    for(int i=0;i<n;i++)
+        cin>>id[i]>>time[i];
     solve1(id, time, 5);
     solve2(id, time, 5);
     return 0;
