@@ -332,7 +332,12 @@ string infixToPrefix(string s)
     string ss;
     while(!ans.empty())
     {
-        if(ans.top().symbol=='#')sprintf(sss,"%d",(int)ans.top().num);
+        if(ans.top().symbol=='#')
+        {
+            int t=(int)ans.top().num;
+            if(ans.top().num+EPS>t&&ans.top().num-EPS<t)sprintf(sss,"%d",(int)ans.top().num);
+            else sprintf(sss,"%.2lf",ans.top().num);
+        }
         else sss[0]=ans.top().symbol,sss[1]='\0';
         for(int i=0;sss[i]!='\0';i++)ss+=sss[i];
         ans.pop();
@@ -343,6 +348,7 @@ string infixToPrefix(string s)
 
 int main()
 {
+    freopen("test.txt","r",stdin);
     string s,s1,s2;
     while(getline(cin,s,'\n'))
     {
