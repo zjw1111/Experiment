@@ -12,7 +12,6 @@ int main()
         else if(n>1000)printf("The size is too huge:\n");
         scanf("%d",&n);
     }
-
     //generate magic square
     int ans[n][n];
     memset(ans,0,sizeof(ans));
@@ -25,7 +24,6 @@ int main()
         ans[xx][yy] = i;
         x=xx;y=yy;
     }
-
     //output
     for(int i=0;i<n;i++)
     {
