@@ -13,7 +13,7 @@ private:
     struct node
     {
         string id;
-        double time;
+        double time, len;
         node *next;
     };
 
@@ -27,11 +27,12 @@ public:
         sum=0;
     }
 
-    void push(string id, double time)
+    void push(string id, double time, double len)
     {
         node *a = new(node);
         a->id= id;
         a->time = time;
+        a->len = len;
         a->next = NULL;
         sum++;
         if(endNode==NULL)
@@ -53,7 +54,8 @@ public:
     void pop()
     {
         node *t = frontNode;
-        frontNode = frontNode->next;
+        if(frontNode == endNode)frontNode=endNode=NULL;
+        else frontNode = frontNode->next;
         sum--;
         delete(t);
     }
@@ -71,10 +73,10 @@ private:
     struct node
     {
         string id;
-        double time;
+        double time, len;
         friend bool operator < (node a, node b)
         {
-            return a.time < b.time;
+            return a.len < b.len;
         }
     };
 
@@ -124,11 +126,12 @@ public:
         tree.clear();
     }
 
-    void push(string id, double time)
+    void push(string id, double time, double len)
     {
         node *a = new(node);
         a->id= id;
         a->time = time;
+        a->len = len;
         tree.push_back(*a);
         pushup(tree.size()-1);
     }
@@ -157,42 +160,44 @@ public:
 };
 
 //Common task queue
-void solve1(string id[], double time[], int n)
+void solve1(string id[], double time[], double len[], int n)
 {
     queue q;
     q.init();
-    for(int i=0;i<n;i++)
-        q.push(id[i],time[i]);
+    int now = 0;
     double timeSum = 0.0, waitSum=0.0;
-    while(!q.empty())
+    while(!q.empty() || now<n)
     {
+        if(q.empty()&&timeSum<time[now])timeSum = time[now];
+        while(now<n&&timeSum>=time[now])q.push(id[now],time[now],len[now]),now++;
         printf("%s:  ",q.front().id.c_str());
         printf("%7.2lfs  ->",timeSum);
-        printf("%7.2lfs   ",timeSum+q.front().time);
-        printf("wait:%.2lfs\n",timeSum);
-        waitSum += timeSum;
-        timeSum = timeSum+q.front().time;
+        printf("%7.2lfs   ",timeSum+q.front().len);
+        printf("wait:%.2lfs\n",timeSum-q.front().time);
+        waitSum += timeSum-q.front().time;
+        timeSum = timeSum+q.front().len;
         q.pop();
     }
     printf("average wait: %.2lfs\n\n",waitSum/n);
 }
 
 //priority task queue
-void solve2(string id[], double time[], int n)
+void solve2(string id[], double time[], double len[], int n)
 {
     priority_queue q;
     q.init();
-    for(int i=0;i<n;i++)
-        q.push(id[i],time[i]);
+    int now = 0;
     double timeSum = 0.0, waitSum=0.0;
-    while(!q.empty())
+    while(!q.empty() || now<n)
     {
+        if(q.empty()&&timeSum<time[now])timeSum = time[now];
+        while(now<n&&timeSum>=time[now])q.push(id[now],time[now],len[now]),now++;
         printf("%s:  ",q.top().id.c_str());
         printf("%7.2lfs  ->",timeSum);
-        printf("%7.2lfs   ",timeSum+q.top().time);
-        printf("wait:%.2lfs\n",timeSum);
-        waitSum += timeSum;
-        timeSum = timeSum+q.top().time;
+        printf("%7.2lfs   ",timeSum+q.top().len);
+        printf("wait:%.2lfs\n",timeSum-q.top().time);
+        waitSum += timeSum-q.top().time;
+        timeSum = timeSum+q.top().len;
         q.pop();
     }
     printf("average wait: %.2lfs\n\n",waitSum/n);
@@ -200,15 +205,16 @@ void solve2(string id[], double time[], int n)
 
 int main()
 {
+    freopen("test.txt","r",stdin);
     int n;
     string id[N];
-    double time[N];
+    double time[N],len[N];
     printf("Please input the number of process:\n");
     scanf("%d",&n);
-    printf("input every process's name and time:\n");
+    printf("input every process's name, submit time and required time:\n");
     for(int i=0;i<n;i++)
-        cin>>id[i]>>time[i];
-    solve1(id, time, 5);
-    solve2(id, time, 5);
+        cin>>id[i]>>time[i]>>len[i];
+    solve1(id, time, len, 5);
+    solve2(id, time, len, 5);
     return 0;
 }
