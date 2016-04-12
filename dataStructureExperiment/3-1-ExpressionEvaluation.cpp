@@ -4,7 +4,6 @@
 #include<string>
 #define EPS 1e-6
 using namespace std;
-
 class stack
 {
 private:
@@ -63,14 +62,14 @@ int symbolCheck[10][10]={
 {0,0,0,0,0,0,2,2}
 };
 int symbolCheck2[10][10]={
+{0,0,0,0,0,1,0,1},
+{0,0,0,0,0,1,0,1},
 {1,1,0,0,0,1,0,1},
 {1,1,0,0,0,1,0,1},
-{1,1,1,1,1,1,0,1},
-{1,1,1,1,1,1,0,1},
-{1,1,1,1,1,1,0,1},
-{1,1,1,1,1,1,2,2},
+{1,1,0,0,0,1,0,1},
+{1,1,1,1,1,1,0,2},
 {0,0,0,0,0,2,0,1},
-{0,0,0,0,0,2,0,2}
+{0,0,0,0,0,0,0,0}
 };
 int getSymbol(char c)
 {
@@ -93,7 +92,7 @@ double calculate(double x, double y, char c)
     if(c=='/')return x/y;
     if(c=='%')return 1.0*((int)(x+EPS)%(int)(y+EPS));
 }
-
+//中缀表达式计算
 double infixCal(string s)
 {
     stack stackDigitial,stackSymbol;
@@ -151,6 +150,7 @@ double infixCal(string s)
     }
     return stackDigitial.top().num;
 }
+//后缀表达式计算
 double suffixCal(string s)
 {
     stack stackDigitial;
@@ -179,6 +179,7 @@ double suffixCal(string s)
     }
     return stackDigitial.top().num;
 }
+//前缀表达式计算
 double prefixCal(string s)
 {
     stack stackNode;
@@ -224,6 +225,7 @@ double prefixCal(string s)
     }
     return ans.top().num;
 }
+//中缀转后缀
 string infixToSuffix(string s)
 {
     stack stackSymbol;
@@ -268,6 +270,7 @@ string infixToSuffix(string s)
     }
     return ss;
 }
+//中缀转前缀
 string infixToPrefix(string s)
 {
     stack stackNode;
@@ -307,12 +310,13 @@ string infixToPrefix(string s)
         else
         {
             int now = symbolCheck2[getSymbol(stackSymbol.top().symbol)][getSymbol(c)];
-            if(now==1)
+            while(now==1)
             {
                 ans.push(0,stackSymbol.top().symbol);
                 stackSymbol.pop();
+                now = symbolCheck2[getSymbol(stackSymbol.top().symbol)][getSymbol(c)];
             }
-            else if(now==0)
+            if(now==0)
             {
                 stackSymbol.push(0,c);
                 stackNode.pop();
@@ -348,7 +352,6 @@ string infixToPrefix(string s)
 
 int main()
 {
-    freopen("test.txt","r",stdin);
     string s,s1,s2;
     while(getline(cin,s,'\n'))
     {
