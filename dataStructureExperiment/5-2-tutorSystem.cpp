@@ -174,6 +174,7 @@ public:
         if(tmp == NULL)printf("inexistence\n");
         else
         {
+            printf("%s (%s)\n",tmp->name.c_str(),tmp->data.c_str());
             if(tmp->type != 0)printf("%s's teacher is %s(%s)\n",name.c_str(),tmp->fa->name.c_str(),tmp->fa->data.c_str());
             if(tmp->include != NULL)
             {
@@ -332,7 +333,7 @@ int main()
             }
         }
         printf("\n请输入操作项目序号:\n");
-        printf("1:插入,  2:删除,  3:查询,  4:统计,  5:输出,  6:移动，  7:退出.\n");
+        printf("1:插入,  2:删除,  3:查询,  4:统计,  5:输出,  6:移动，  0:退出.\n");
     }
     return 0;
 }
