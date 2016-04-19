@@ -21,7 +21,7 @@ int main()
         xx = (x-1+n)%n;
         yy = (y+1)%n;
         if(ans[xx][yy])xx = (x+1)%n, yy = y;
-        ans[xx][yy] = i;
+        ans[x][y] = i;
         x=xx;y=yy;
     }
     //output
