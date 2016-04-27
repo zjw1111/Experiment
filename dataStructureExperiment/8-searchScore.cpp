@@ -103,7 +103,7 @@ void solve1(int *num)
         if(num1<num[i])num2=num1,num1=num[i],res2=res1,res1=i;
         else if(num2<num[i])num2=num[i],res2=i;
     }
-    printf("The max score is %d, and the second is %d\n",res1,res2);
+    printf("The max score is %d, and the second is %d\n\n",res1,res2);
 }
 
 void solve2(int *num)
@@ -122,16 +122,26 @@ void solve3(int *num)
     res1=hp.top();
     hp.pop();
     res2=hp.top();
-    printf("The max score is %d, and the second is %d\n",res1,res2);
+    printf("The max score is %d, and the second is %d\n\n",res1,res2);
+}
+
+void init(int *num)
+{
+    srand(clock());
+    for(int i=1;i<=N;i++)num[i]=rand()%1000;
+    printf("%d students's score:\n",N);
+    for(int i=1;i<=N;i++)
+    {
+        printf("%3d-%3d  ",i,num[i]);
+        if(i%8==0)printf("\n");
+    }
+    printf("\n");
 }
 
 int main()
 {
     int num[N+1];
-    srand(clock());
-    for(int i=1;i<=N;i++)num[i]=rand()%1000;
-//    for(int i=1;i<=N;i++)printf("%d ",num[i]);
-//    printf("\n");
+    init(num);
     solve1(num);
     solve2(num);
     solve3(num);
