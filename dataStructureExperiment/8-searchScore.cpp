@@ -93,6 +93,51 @@ public:
     }
 };
 
+class segmentTree
+{
+private:
+    #define root 1 , N , 1
+    #define lson l , m , rt << 1
+    #define rson m + 1 , r , rt << 1 | 1
+    struct node
+    {
+        int num,pos;
+        friend bool operator < (node a, node b)
+        {
+            return a.num < b.num;
+        }
+    }res[N<<2],t;
+    int tot=0;
+    void pushUp(int rt)
+    {
+        res[rt] = max(res[rt<<1],res[rt<<1|1]);
+    }
+public:
+    void build(int l,int r,int rt,int *num)
+    {
+        if(l == r)
+        {
+            if(tot==0)t.num=t.pos=0;
+            res[rt].num=num[++tot];
+            res[rt].pos=tot;
+            return;
+        }
+        int m = (l+r)>>1;
+        build(lson,num);
+        build(rson,num);
+        pushUp(rt);
+    }
+    node query(int l,int r,int rt,int ql,int qr)
+    {
+        if(l>qr||ql>r)
+            return t;
+        if(l>=ql&&r<=qr)
+            return res[rt];
+        int m = l+r>>1;
+        return max(query(l,m,rt<<1,ql,qr),query(m+1,r,rt<<1|1,ql,qr));
+    }
+};
+
 void solve1(int *num)
 {
     int res1,res2,num1,num2;
@@ -106,9 +151,16 @@ void solve1(int *num)
     printf("The max score is %d, and the second is %d\n\n",res1,res2);
 }
 
+
 void solve2(int *num)
 {
-
+    int res1,res2;
+    printf("Use tournament method to find:\n");
+    segmentTree st;
+    st.build(root,num);
+    res1=st.query(root,1,N).pos;
+    res2=max(st.query(root,1,res1-1),st.query(root,res1+1,N)).pos;
+    printf("The max score is %d, and the second is %d\n\n",res1,res2);
 }
 
 void solve3(int *num)
@@ -127,7 +179,7 @@ void solve3(int *num)
 
 void init(int *num)
 {
-    srand(clock());
+    srand((unsigned)time(NULL));
     for(int i=1;i<=N;i++)num[i]=rand()%1000;
     printf("%d students's score:\n",N);
     for(int i=1;i<=N;i++)
