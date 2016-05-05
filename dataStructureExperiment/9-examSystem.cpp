@@ -57,6 +57,47 @@ public:
         }
         freopen("CON","r",stdin);
     }
+    int dfs(int u,int res[],int g[][11])
+    {
+        int vis[11]={0};
+        for(int j=0;j<10;j++)if(g[u][j]&&res[j])
+            vis[res[j]]=1;
+        for(int j=1;j<=10&&vis[j];j++)res[u]=j;
+        res[u]++;
+        int ans=res[u];
+        for(int j=0;j<10;j++)
+            if(g[u][j]&&res[j]==0)
+                ans=max(ans,dfs(j,res,g));
+        return ans;
+    }
+    void arrange()
+    {
+        int g[11][11]={0};
+        for(int i=0;i<10;i++)
+            for(int j=0;j<10;j++)
+                for(int k=0;k<3;k++)
+                    for(int l=0;l<3;l++)
+                        if(cla[i].course[k]==cla[j].course[l])
+                            g[i][j]=g[j][i]=1;
+        int res[11]={0},ans=0;
+        for(int i=0;i<10;i++)
+            if(!res[i])
+                ans=max(ans,dfs(i,res,g));
+        int flag=0;
+        printf("----------The examination room arrangement---------\n");
+        for(int i=1;i<=ans;i++)
+        {
+            flag=0;
+            printf("day %d: ",i);
+            for(int j=0;j<10;j++)
+                if(res[j]==i)
+                {
+                    flag=1;
+                    printf("course%d ",j+1);
+                }
+            printf("\n");
+        }
+    }
     void output(Student *a)
     {
         cout<<a->id<<" "<<a->name<<" "<<a->classId<<" ";
@@ -269,14 +310,15 @@ public:
     int solve()
     {
         init();
-        printf("--------------Please choose the operation:------------\n");
-        printf("1:显示考试情况  2:统计考试成绩  3:查找成绩  0:结束程序\n");
+        arrange();
+        printf("\n-------------Please choose the operation:----------\n");
+        printf("1:Display information  2:Statistical 3:Find  0:exit\n");
         while(scanf("%d",&t)&&t)
         {
             if(t==1)solve1();
             if(t==2)solve2();
             if(t==3)solve3();
-            printf("\n1:显示考试情况  2:统计考试成绩  3:查找成绩  0:结束程序\n");
+            printf("\n1:Display information  2:Statistical 3:Find  0:exit\n");
         }
         return 0;
     }
