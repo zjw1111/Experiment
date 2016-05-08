@@ -20,10 +20,6 @@ public:
             score[1]=sc2,totScore+=sc2;
             score[2]=sc3,totScore+=sc3;
         }
-        friend bool operator < (Student a, Student b)
-        {
-            return a.totScore < b.totScore;
-        }
     };
     vector<Student>stu;
     int t;
