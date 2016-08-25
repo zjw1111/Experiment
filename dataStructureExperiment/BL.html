@@ -1,36 +1,5 @@
 BL, This is for you! （＊￣︶￣＊） Please forgive me, I'm so pathetic ヽ(｡ゝω・｡)ﾉ, you will not angry to me.
-<!
-首先按下Ctrl+F，然后输入1，最后点击回车。
-11221111112221111112211222211222111122211222211
-11211111111211111111211222211221122112211222211
-11221111111111111112211222211211222211211222211
-11222211111111111122222111122211222211211222211
-11222222111111112222222211222211222211211222211
-11222222221111222222222211222221122112211222211
-11222222222112222222222211222222111122221111112
->
-
-<!doctype html>
-<html>
-<head>  
-<title>Heart</title> 
-<meta charset="UTF-8">  
-</head>  
-<body>  
-<canvas id="c"></canvas>  
-<script>  
-var c = document.getElementsByTagName('canvas')[0];
-var a = c.getContext('2d');   
-</script> 
-
-<script>
-e=[];h=[];O=c.width=innerWidth;Q=c.height=innerHeight;v=32;M=Math;R=M.random;C=M.cos;Y=6.3;for(i=0;i<Y;i+=0.2)h.push([O/2+180*M.pow(M.sin(i),3),Q/2+10*-(15*C(i)-5*C(2*i)-2*C(3*i)-C(4*i))]);
-for(i=0;i<v;){x=R()*O;y=R()*Q;H=80*(i/v)+280;S=40*R()+60;B=60*R()+20;f=[];for(k=0;k<v;)f[k++]={x:x,y:y,X:0,Y:0,R:1-k/v+1,S:R()+1,q:~~(R()*v),D:2*(i%2)-1,F:0.2*R()+0.7,f:"hsla("+~~H+","+~~S+"%,"+~~B+"%,.1)"};e[i++]=f}
-function _(d){a.fillStyle=d.f;a.beginPath();a.arc(d.x,d.y,d.R,0,Y,1);a.closePath();a.fill()}
-setInterval(function(){a.fillStyle="rgba(0,0,0,.2)";a.fillRect(0,0,O,Q);for(i=v;i--;){f=e[i];u=f[0];q=h[u.q];D=u.x-q[0];E=u.y-q[1];G=M.sqrt(D*D+E*E);10>G&&(0.95<R()?u.q=~~(R()*v):(0.99<R()&&(u.D*=-1),u.q+=u.D,u.q%=v,0>u.q&&(u.q+=v)));u.X+=-D/G*u.S;u.Y+=-E/G*u.S;u.x+=u.X;u.y+=u.Y;_(u);u.X*=u.F;u.Y*=u.F;for(k=0;k<v-1;)T=f[k],N=f[++k],N.x-=0.7*(N.x-T.x),N.y-=0.7*(N.y-T.y),_(N)}},25);
-</script>
-</body>
-</html>
+<!doctype html>  
 <html>  
 <head>    
 <title>Heart</title>   
@@ -48,23 +17,4 @@ var a = c.getContext('2d');
 C=Math.cos;E=Math.random;F=parseInt;w=h=0;q=[];P=[];T=10;function Q(t){return[16*Math.pow(Math.sin(t),3),-(13*C(t)-5*C(2*t)-2*C(3*t)-C(4*t))]}with(b.style)i=marginLeft=marginTop=0,overflow='hidden';function S(){with(window)c.width=w=innerWidth,c.height=h=innerHeight;a.fillStyle=0;a.fillRect(0,0,w,h);a.globalAlpha=0.1;a.lineWidth=1;a.lineJoin="round"}window.onresize=S;S();for(;i<6;i+=0.1){P.push(Q(i));}function I(k){q[k]=E();q[k+1]=E()*h;q[k+2]=E()-0.5;q[k+3]=E()-0.5;q[k+4]=E()*T;q[k+5]=E()/T;q[k+6]="rgb("+F(E()*255)+","+F(E()*255)+","+F(E()*255)+")";}for(i=0;i<25;i++)k=i*7,I(k);function D(x,y,s,c){x*=w;with(a){save();translate(x,y);scale(s,s);beginPath();strokeStyle=c;moveTo.apply(a,P[0]);for(i=1;i<P.length;i++)lineTo.apply(a,P[i]);lineTo.apply(a,P[0]);stroke();closePath();restore()}}setInterval("a.fillRect(0,0,w,h);for(k=0;k<q.length;k+=7){D(q[k]+=q[k+2]/400,q[k+1]+=q[k+3]/400, q[k+4]+=q[k+5], q[k+6]);if(q[k+4]>T)I(k)}",80);
 </script>
 </body> 
-</html> 
-<html>  
-<head>    
-<title>Heart</title>   
-<meta charset="UTF-8">    
-</head>    
-<body>    
-<canvas id="c"></canvas>    
-<script>    
-var b = document.body;
-var c = document.getElementsByTagName('canvas')[0];
-var a = c.getContext('2d');
-</script>
-
-<script>
-(function(a,b,c,d){function t(){var a={},b={},c=256*f(q/130),l="hsl("+c+",50%,50%)";d.fillStyle=j,d.fc(0,0,h,i),a.x=k+m*f(q/r),a.y=p.y-n*e.abs(f(q/r)),b.x=k+m*f(q/r),b.y=o.y-n,d.strokeStyle=l,d.lineWidth=2+2*g(q/r),d.ba(),d.m(o.x,o.y),d.bC(b.x,b.y,a.x,a.y,p.x,p.y),d.s(),q++,setTimeout(t,30)}var e=Math,f=e.sin,g=e.cos,h=innerWidth,i=innerHeight,j="rgba(0,0,0,0.01)",k=h/2,l=i/2,m=300,n=200,o={x:k,y:l+n},p={x:k,y:l-n},q=0,r=25,s;for(s in d)d[s[0]+(s[6]||"")]=d[s];b.style.margin=0,c.style.background="#000",c.width=h,c.height=i,t()})(this,b,c,a);
-</script>
-</body> 
-  
 </html>
